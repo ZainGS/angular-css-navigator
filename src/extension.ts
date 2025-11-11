@@ -22,27 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
         provider
     );
     
-    // Add a test command
-    const testCommand = vscode.commands.registerCommand('angular-css-navigator.test', () => {
-        const editor = vscode.window.activeTextEditor;
-        if (editor) {
-            console.log('Current file:', editor.document.fileName);
-            console.log('Current position:', editor.selection.active.line, editor.selection.active.character);
-            
-            // Test the provider manually
-            provider.provideDefinition(editor.document, editor.selection.active, new vscode.CancellationTokenSource().token)
-                .then(result => {
-                    if (result) {
-                        console.log('Manual test found definition!', result);
-                    } else {
-                        console.log('Manual test found no definition');
-                    }
-                });
-        }
-    });
-    
-    context.subscriptions.push(disposable1, disposable2, disposable3, testCommand);
-    console.log('Definition provider registered for HTML files');
+    context.subscriptions.push(disposable1, disposable2, disposable3);
 }
 
 class CssClassDefinitionProvider implements vscode.DefinitionProvider {
@@ -133,15 +113,10 @@ class CssClassDefinitionProvider implements vscode.DefinitionProvider {
         const scssFileName = fileName.replace('.component.html', '.component.scss');
         
         const scssPath = path.join(dir, scssFileName);
-        
-        // Check if file exists
-        // const exists = fs.existsSync(scssPath);
-        
         return scssPath;
     }
 
     private getGlobalStylesPath(htmlFilePath: string): string | undefined {
-         
         // Walk up the directory tree to find src folder
         let currentDir = path.dirname(htmlFilePath);
         let attempts = 0;
@@ -177,7 +152,6 @@ class CssClassDefinitionProvider implements vscode.DefinitionProvider {
     }
 
     private async findClassInFile(filePath: string, className: string): Promise<vscode.Location | undefined> {
-        
         try {
             const content = fs.readFileSync(filePath, 'utf8');
             
