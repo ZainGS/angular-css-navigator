@@ -1,0 +1,50 @@
+{
+    "name": "angular-css-navigator",
+    "displayName": "Angular CSS Navigator",
+    "description": "Navigate to CSS class definitions in Angular projects",
+    "version": "1.0.0",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onLanguage:html"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [],
+        "languages": [
+            {
+                "id": "html",
+                "extensions": [
+                    ".html"
+                ]
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.60.0",
+        "@types/node": "16.x",
+        "typescript": "^4.9.4"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zaings/angular-css-navigator"
+    },
+    "keywords": [
+        "angular",
+        "css",
+        "scss",
+        "navigation",
+        "goto-definition"
+    ],
+    "author": "Zain Syed",
+    "license": "MIT"
+}
